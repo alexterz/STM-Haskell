@@ -1,0 +1,70 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.4.
+--
+-- see: https://github.com/sol/hpack
+
+name:           STM-Haskell
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/STM-Haskell#readme>
+homepage:       https://github.com/githubuser/STM-Haskell#readme
+bug-reports:    https://github.com/githubuser/STM-Haskell/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2021 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/STM-Haskell
+
+library
+  exposed-modules:
+      MVarExample
+      MVarExample2
+      RollBackTransaction
+      TVarExample
+  other-modules:
+      Paths_STM_Haskell
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+    , cond >=0.4.1.1 && <0.5
+    , stm >=2.5.0.1 && <2.6
+  default-language: Haskell2010
+
+executable STM-Haskell-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_STM_Haskell
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      STM-Haskell
+    , base >=4.7 && <5
+    , cond >=0.4.1.1 && <0.5
+    , random >=1.2.0 && <1.3
+    , stm >=2.5.0.1 && <2.6
+  default-language: Haskell2010
+
+test-suite STM-Haskell-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_STM_Haskell
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      STM-Haskell
+    , base >=4.7 && <5
+    , cond >=0.4.1.1 && <0.5
+    , stm >=2.5.0.1 && <2.6
+  default-language: Haskell2010
