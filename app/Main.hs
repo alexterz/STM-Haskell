@@ -3,6 +3,7 @@ module Main where
 import           Control.Concurrent
 import           Control.Concurrent.STM
 import           Control.Monad
+import           Data.Algebra.Boolean
 import           MVarExample
 import           MVarExample2
 import           RollBackTransaction
@@ -79,17 +80,19 @@ main = do v <- newMVar 10000
 --           _ <- getLine -- to wait for completion
 --           return ()
 
--- Roll Back Example - Testing retry under mutable condition -- fails, why?
+-- Roll Back Example - Testing retry under mutable condition
 
 -- main :: IO ()
 -- main = do v <- newTVarIO 10000
 --           s <- newTVarIO [("a",7)]
 --           b <- newTVarIO True
---           forkDelay 5 $ do isWorking <- isCardSystemWorking
---                            (money, stock) <- atomically $
---                                                 do (payByCardWithTVar "a" 1000 v s isWorking b)
+--           valOfb <- (readTVarIO b)
+--           randomBool <- isCardSystemWorking
+--           forkDelay 5 $ do (money, stock) <- atomically $
+--                                                 do (payByCardWithTVar "a" 1000 v s b)
 --                                                    getMoneyAndStockStm v s
 --                            putStrLn $ show money ++ ", " ++ show stock
+--           forkDelay 1 $ atomically $ writeTVar b (xor randomBool valOfb) -- generates a random var using a random generator and the TVar of the previous transaction
 --           _ <- getLine -- to wait for completion
 --           return ()
 
